@@ -3,18 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Category;
 
 class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-    \App\Models\Category::create([
-        'name' => 'Main Dishes',
-    ]);
-
-    \App\Models\Category::create([
-        'name' => 'Desserts',
-    ]);
+        Category::firstOrCreate(['name' => 'Main Dishes']);
+        Category::firstOrCreate(['name' => 'Desserts']);
     }
 }
