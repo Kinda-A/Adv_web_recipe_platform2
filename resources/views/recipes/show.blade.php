@@ -18,6 +18,7 @@
 
     <p>⏱ {{ $recipe->cooking_time }} minutes</p>
 
+<<<<<<< HEAD
     <!-- ✅ SUCCESS MESSAGE -->
     @if(session('success'))
         <div class="alert alert-success">
@@ -43,6 +44,9 @@
     @endauth
 
     <a href="/recipes" class="btn btn-light mt-3">Back</a>
+=======
+    <a href="/recipes" class="btn btn-light">Back</a>
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
 
 </div>
 

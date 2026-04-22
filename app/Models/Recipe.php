@@ -26,8 +26,11 @@ class Recipe extends Model
     {
         return $this->hasMany(Rating::class);
     }
+<<<<<<< HEAD
     public function getAverageRatingAttribute()
 {
     return round($this->ratings()->avg('rating'), 1);
 }
+=======
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
 }

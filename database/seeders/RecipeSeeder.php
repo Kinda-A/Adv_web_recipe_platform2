@@ -10,7 +10,10 @@ class RecipeSeeder extends Seeder
     public function run(): void
     {
         DB::table('recipes')->insert([
+<<<<<<< HEAD
 
+=======
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
@@ -20,16 +23,23 @@ class RecipeSeeder extends Seeder
                 'image' => 'https://www.kdfoods-sy.com/images/salad7.jpg',
                 'origin_country' => 'Lebanon',
                 'cooking_time' => 20,
+<<<<<<< HEAD
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
+=======
+                'created_at' => '2026-04-07 07:41:10',
+                'updated_at' => '2026-04-07 07:41:10',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
                 'title' => 'Shawarma',
                 'description' => 'Spiced grilled meat wrap with garlic sauce.',
                 'instructions' => 'Marinate meat, grill, slice, serve in bread.',
+<<<<<<< HEAD
                 'image' => 'https://b.zmtcdn.com/data/pictures/chains/4/21627804/1735546437db0dba9a-4e08-4deb-b8ba-af0f57c29676.jpg',
                 'origin_country' => 'Middle East',
                 'cooking_time' => 45,
@@ -37,6 +47,14 @@ class RecipeSeeder extends Seeder
                 'updated_at' => now(),
             ],
 
+=======
+                'image' => 'https://b.zmtcdn.com/data/pictures/chains/4/21627804/1735546437db0dba9a-4e08-4deb-b8ba-af0f57c29676.jpg?fit=around|771.75:416.25&crop=771.75:416.25;*,*',
+                'origin_country' => 'Middle East',
+                'cooking_time' => 45,
+                'created_at' => '2026-04-07 07:41:10',
+                'updated_at' => '2026-04-07 07:41:10',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
@@ -46,10 +64,16 @@ class RecipeSeeder extends Seeder
                 'image' => 'https://www.mushroomcouncil.org/wp-content/uploads/2023/07/Mushroom-Kibbeh.jpg',
                 'origin_country' => 'Lebanon',
                 'cooking_time' => 100,
+<<<<<<< HEAD
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
+=======
+                'created_at' => '2026-04-07 07:41:10',
+                'updated_at' => '2026-04-07 07:41:10',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
@@ -59,10 +83,16 @@ class RecipeSeeder extends Seeder
                 'image' => 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd',
                 'origin_country' => 'USA',
                 'cooking_time' => 25,
+<<<<<<< HEAD
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
+=======
+                'created_at' => '2026-04-07 07:41:10',
+                'updated_at' => '2026-04-07 07:41:10',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
@@ -72,16 +102,23 @@ class RecipeSeeder extends Seeder
                 'image' => 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c',
                 'origin_country' => 'USA',
                 'cooking_time' => 40,
+<<<<<<< HEAD
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
+=======
+                'created_at' => '2026-04-07 07:41:10',
+                'updated_at' => '2026-04-07 07:41:10',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
                 'title' => 'Sushi',
                 'description' => 'Japanese rice rolls.',
                 'instructions' => 'Roll rice and fish in seaweed.',
+<<<<<<< HEAD
                 'image' => 'https://images.unsplash.com/photo-1553621042-f6e147245754',
                 'origin_country' => 'Japan',
                 'cooking_time' => 50,
@@ -89,12 +126,21 @@ class RecipeSeeder extends Seeder
                 'updated_at' => now(),
             ],
 
+=======
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMaoZuqM_NULLsR95VobtH0PebyHEvoVRK_w&s',
+                'origin_country' => 'Japan',
+                'cooking_time' => 50,
+                'created_at' => '2026-04-07 07:41:10',
+                'updated_at' => '2026-04-07 07:41:10',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
                 'title' => 'Manakish',
                 'description' => 'Flatbread with zaatar.',
                 'instructions' => 'Bake dough with topping.',
+<<<<<<< HEAD
                 'image' => 'https://urbanfarmandkitchen.com/wp-content/uploads/2023/08/manakish-zaatar-2.jpg',
                 'origin_country' => 'Lebanon',
                 'cooking_time' => 60,
@@ -102,12 +148,21 @@ class RecipeSeeder extends Seeder
                 'updated_at' => now(),
             ],
 
+=======
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7A1aOwm7AjdGqglfCNto37s4HM96bUKp5sA&s',
+                'origin_country' => 'Lebanon',
+                'cooking_time' => 60,
+                'created_at' => '2026-04-07 07:57:08',
+                'updated_at' => '2026-04-07 07:57:08',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
                 'title' => 'Chicken Alfredo',
                 'description' => 'Creamy pasta.',
                 'instructions' => 'Cook pasta and sauce.',
+<<<<<<< HEAD
                 'image' => 'https://www.budgetbytes.com/wp-content/uploads/2022/07/Chicken-Alfredo-V3.jpg',
                 'origin_country' => 'Italy',
                 'cooking_time' => 35,
@@ -115,12 +170,21 @@ class RecipeSeeder extends Seeder
                 'updated_at' => now(),
             ],
 
+=======
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkBWB1aXVeB7uc5THFWEXaEHbgY3DJsaTxGA&s',
+                'origin_country' => 'Italy',
+                'cooking_time' => 35,
+                'created_at' => '2026-04-07 07:57:08',
+                'updated_at' => '2026-04-07 07:57:08',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
             [
                 'user_id' => 1,
                 'category_id' => 1,
                 'title' => 'Mocha Frappe',
                 'description' => 'Cold coffee drink.',
                 'instructions' => 'Blend ingredients.',
+<<<<<<< HEAD
                 'image' => 'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7',
                 'origin_country' => 'Greece',
                 'cooking_time' => 10,
@@ -247,6 +311,14 @@ class RecipeSeeder extends Seeder
                 'updated_at' => now(),
             ],
 
+=======
+                'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5XlglhBYv9g0ojlSrufzXhtY7IDuC-NrvLA&s',
+                'origin_country' => 'Greece',
+                'cooking_time' => 10,
+                'created_at' => '2026-04-07 07:57:08',
+                'updated_at' => '2026-04-07 07:57:08',
+            ],
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
         ]);
     }
 }

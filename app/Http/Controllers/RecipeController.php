@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
+<<<<<<< HEAD
     public function index(Request $request)
     {
         $query = Recipe::with('user');
@@ -22,6 +23,13 @@ class RecipeController extends Controller
 
         return view('recipes.index', compact('recipes'));
     }
+=======
+    public function index()
+{
+    $recipes = \App\Models\Recipe::all();
+    return view('recipes.index', compact('recipes'));
+}
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
 
     public function create()
     {
@@ -40,7 +48,18 @@ class RecipeController extends Controller
             'category_id' => 'nullable|integer',
         ]);
 
+<<<<<<< HEAD
         // SAFE DEFAULTS
+=======
+        // basic sanitization: strip script tags and any HTML to avoid JS injection
+        array_walk($data, function (&$v, $k) {
+            if (is_string($v)) {
+                $v = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $v);
+                $v = strip_tags($v);
+            }
+        });
+
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
         $data['user_id'] = auth()->id() ?? 1;
         $data['category_id'] = $data['category_id'] ?? 1;
 
@@ -64,7 +83,10 @@ class RecipeController extends Controller
     public function update(Request $request, $id)
     {
         $recipe = Recipe::findOrFail($id);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
         $data = $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'description' => 'nullable|string',
@@ -75,6 +97,16 @@ class RecipeController extends Controller
             'category_id' => 'nullable|integer',
         ]);
 
+<<<<<<< HEAD
+=======
+        array_walk($data, function (&$v, $k) {
+            if (is_string($v)) {
+                $v = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $v);
+                $v = strip_tags($v);
+            }
+        });
+
+>>>>>>> 204b275a6060ddd2972c2a14cbc0149a4c0b2500
         $recipe->update($data);
 
         return redirect()->route('recipes.index');
