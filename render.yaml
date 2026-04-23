@@ -9,7 +9,7 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_KEY
-        generateValue: true
+        generateValue: false
       - key: RUN_MIGRATIONS
         value: 'true'
       - key: DB_CONNECTION
