@@ -61,3 +61,22 @@ Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])
     ->name('recipes.show');
 
 require __DIR__.'/auth.php';
+
+// Temporary DB health check (secured by DEBUG_TOKEN in .env)
+use Illuminate\Http\Request;
+Route::get('/_health/db', function (Request $request) {
+    $token = env('DEBUG_TOKEN');
+    if (!$token || $request->query('token') !== $token) {
+        return response('Not Found', 404);
+    }
+
+    try {
+        $pdo = new PDO(sprintf('mysql:host=%s;port=%s;dbname=%s', env('DB_HOST'), env('DB_PORT', 3306), env('DB_DATABASE')),
+            env('DB_USERNAME'), env('DB_PASSWORD'), [PDO::ATTR_TIMEOUT => 5]);
+        $stmt = $pdo->query('SELECT 1');
+        $ok = $stmt !== false;
+        return response()->json(['ok' => $ok]);
+    } catch (Exception $e) {
+        return response()->json(['ok' => false, 'error' => $e->getMessage()], 500);
+    }
+});
