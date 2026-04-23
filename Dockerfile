@@ -58,7 +58,10 @@ COPY --from=vendor /var/www/html/vendor ./vendor
 COPY --from=node-build /app/public ./public
 
 # Install nginx and copy configuration
-RUN apt-get update && apt-get install -y --no-install-recommends nginx \
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nginx \
+    && ln -sf /usr/sbin/nginx /usr/local/bin/nginx || true \
+    && nginx -v || true \
     && rm -rf /var/lib/apt/lists/*
 
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
