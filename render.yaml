@@ -31,8 +31,8 @@ services:
     plan: starter
     dockerfilePath: ./mysql.Dockerfile
     autoDeploy: true
-      startCommand: /usr/local/bin/start.sh
-    preDeployCommand: php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache
+    startCommand: /usr/local/bin/start.sh
+    preDeployCommand: "php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache"
     envVars:
       - key: MYSQL_DATABASE
         value: recipe_sharing
