@@ -48,6 +48,9 @@ COPY . .
 COPY --from=vendor /var/www/html/vendor ./vendor
 COPY --from=node-build /app/public ./public
 
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative || true
 
 # Permissions
@@ -55,4 +58,5 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 9000
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php-fpm"]
