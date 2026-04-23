@@ -80,6 +80,10 @@ RUN composer dump-autoload --optimize --no-dev --classmap-authoritative || true
 # Permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
+# Install PostgreSQL extensions for Laravel if needed (optional, comment out if not using PostgreSQL)
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo pdo_pgsql
 EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
