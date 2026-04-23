@@ -24,6 +24,7 @@ fi
 if [ "${RUN_MIGRATIONS}" = "true" ] || [ "${RUN_MIGRATIONS}" = "TRUE" ]; then
   echo "[entrypoint] running migrations"
   php artisan migrate --force || true
+  php artisan db:seed --force || true
 fi
 
 # Clear Laravel caches safely (fixes stale config issues)
