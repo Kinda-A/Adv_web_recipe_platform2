@@ -27,10 +27,11 @@ if [ "${RUN_MIGRATIONS}" = "true" ] || [ "${RUN_MIGRATIONS}" = "TRUE" ]; then
 fi
 
 # Cache config/routes in non-local environments
-if [ "${APP_ENV}" != "local" ]; then
-  echo "[entrypoint] Caching config and routes"
-  php artisan config:cache || true
-  php artisan route:cache || true
+php artisan config:clear || true
+php artisan cache:clear || true
+php artisan route:clear || true
+php artisan view:clear || true
+
 else
   echo "[entrypoint] APP_ENV=local — skipping config:cache"
 fi
