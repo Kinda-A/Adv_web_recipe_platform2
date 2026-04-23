@@ -33,11 +33,20 @@ WORKDIR /var/www/html
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader --no-scripts
 
-# Node build stage
-FROM node:18-alpine AS node-build
+# Node build stage (use Node 20 slim for Vite >=20 and native bindings)
+FROM node:20-bullseye-slim AS node-build
 WORKDIR /app
+# Install build dependencies required for native modules during npm install
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    build-essential \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 COPY package*.json vite.config.js ./
-RUN npm ci --production=false
+# Prefer deterministic install, but fall back to `npm install` when `npm ci` fails
+# This helps with optional native deps and package-lock mismatches seen in CI builds.
+RUN npm ci --production=false --no-audit --no-fund || \
+    npm install --no-audit --no-fund --no-optional --legacy-peer-deps
 COPY resources ./resources
 RUN npm run build
 
