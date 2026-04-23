@@ -63,7 +63,7 @@ RUN apt-get update \
     && ln -sf /usr/sbin/nginx /usr/local/bin/nginx || true \
     && nginx -v || true \
     && rm -rf /var/lib/apt/lists/*
-
+RUN which nginx && nginx -v
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
