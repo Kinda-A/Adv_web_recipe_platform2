@@ -66,6 +66,10 @@ COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# Copy start script and make executable
+COPY docker/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative || true
 
 # Permissions
@@ -74,4 +78,4 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
 
 EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/local/bin/start.sh"]
