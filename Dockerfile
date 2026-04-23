@@ -80,7 +80,7 @@ RUN composer dump-autoload --optimize --no-dev --classmap-authoritative || true
 # Permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
-
+RUN docker-php-ext-install pdo pdo_pgsql
 EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/usr/local/bin/start.sh"]

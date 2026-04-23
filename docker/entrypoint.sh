@@ -20,73 +20,46 @@ if [ -z "${APP_KEY}" ]; then
   php artisan key:generate --ansi || true
 fi
 
-# Optionally run migrations when RUN_MIGRATIONS=true
+# Run migrations if enabled
 if [ "${RUN_MIGRATIONS}" = "true" ] || [ "${RUN_MIGRATIONS}" = "TRUE" ]; then
-  echo "[entrypoint] RUN_MIGRATIONS=true — running migrations"
+  echo "[entrypoint] running migrations"
   php artisan migrate --force || true
 fi
 
-# Cache config/routes in non-local environments
+# Clear Laravel caches safely (fixes stale config issues)
+echo "[entrypoint] clearing Laravel caches"
 php artisan config:clear || true
 php artisan cache:clear || true
 php artisan route:clear || true
 php artisan view:clear || true
 
-else
-  echo "[entrypoint] APP_ENV=local — skipping config:cache"
-fi
-
-# If a PORT is provided (Render sets $PORT), patch nginx to listen on it
+# If Render provides PORT, update nginx config
 if [ -n "${PORT}" ] && [ -f /etc/nginx/conf.d/default.conf ]; then
   sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf || true
 fi
 
-# If the start command is nginx, ensure php-fpm runs in the background first
+# Start php-fpm if nginx is used
 if [ "$#" -gt 0 ]; then
   if echo "$1" | grep -q "nginx"; then
-    echo "[entrypoint] starting php-fpm in background for nginx"
+    echo "[entrypoint] starting php-fpm in background"
     php-fpm -D || true
   fi
 fi
 
-echo "[entrypoint] finished - executing: $@"
+echo "[entrypoint] finished - executing command: $@"
 
-# If the command was supplied as a single string (some platforms pass the whole startCommand
-# as one argument), run it through the shell so quoted args are parsed correctly.
+# Handle single argument case (Render behavior)
 if [ "$#" -eq 1 ]; then
-  echo "[entrypoint] single-arg start command detected; executing via sh -c"
   exec sh -c "$1"
 else
-  # Sanitize args: remove surrounding single/double quotes that may be embedded
+  # Clean quotes from args
   args=("$@")
   for i in "${!args[@]}"; do
-    # strip leading/trailing double quotes
     args[$i]="${args[$i]#\"}"
     args[$i]="${args[$i]%\"}"
-    # strip leading/trailing single quotes
     args[$i]="${args[$i]#\'}"
     args[$i]="${args[$i]%\'}"
   done
 
-  # Special-case nginx -g "daemon off;": combine subsequent tokens into a single argument after -g
-  for idx in "${!args[@]}"; do
-    if [ "${args[$idx]}" = "-g" ]; then
-      # combine remaining tokens into one argument
-      combined=""
-      for ((j=idx+1; j<${#args[@]}; j++)); do
-        if [ -z "$combined" ]; then
-          combined="${args[$j]}"
-        else
-          combined="$combined ${args[$j]}"
-        fi
-      done
-      newargs=("${args[@]:0:$((idx+1))}")
-      newargs+=("$combined")
-      echo "[entrypoint] executing reconstructed command: ${newargs[*]}"
-      exec "${newargs[@]}"
-    fi
-  done
-
-  echo "[entrypoint] executing sanitized args: ${args[*]}"
   exec "${args[@]}"
 fi
