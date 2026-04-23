@@ -56,5 +56,36 @@ if [ "$#" -eq 1 ]; then
   echo "[entrypoint] single-arg start command detected; executing via sh -c"
   exec sh -c "$1"
 else
-  exec "$@"
+  # Sanitize args: remove surrounding single/double quotes that may be embedded
+  args=("$@")
+  for i in "${!args[@]}"; do
+    # strip leading/trailing double quotes
+    args[$i]="${args[$i]#\"}"
+    args[$i]="${args[$i]%\"}"
+    # strip leading/trailing single quotes
+    args[$i]="${args[$i]#\'}"
+    args[$i]="${args[$i]%\'}"
+  done
+
+  # Special-case nginx -g "daemon off;": combine subsequent tokens into a single argument after -g
+  for idx in "${!args[@]}"; do
+    if [ "${args[$idx]}" = "-g" ]; then
+      # combine remaining tokens into one argument
+      combined=""
+      for ((j=idx+1; j<${#args[@]}; j++)); do
+        if [ -z "$combined" ]; then
+          combined="${args[$j]}"
+        else
+          combined="$combined ${args[$j]}"
+        fi
+      done
+      newargs=("${args[@]:0:$((idx+1))}")
+      newargs+=("$combined")
+      echo "[entrypoint] executing reconstructed command: ${newargs[*]}"
+      exec "${newargs[@]}"
+    fi
+  done
+
+  echo "[entrypoint] executing sanitized args: ${args[*]}"
+  exec "${args[@]}"
 fi
