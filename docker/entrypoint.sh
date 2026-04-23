@@ -35,5 +35,18 @@ else
   echo "[entrypoint] APP_ENV=local — skipping config:cache"
 fi
 
+# If a PORT is provided (Render sets $PORT), patch nginx to listen on it
+if [ -n "${PORT}" ] && [ -f /etc/nginx/conf.d/default.conf ]; then
+  sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf || true
+fi
+
+# If the start command is nginx, ensure php-fpm runs in the background first
+if [ "$#" -gt 0 ]; then
+  if echo "$1" | grep -q "nginx"; then
+    echo "[entrypoint] starting php-fpm in background for nginx"
+    php-fpm -D || true
+  fi
+fi
+
 echo "[entrypoint] finished - executing: $@"
 exec "$@"

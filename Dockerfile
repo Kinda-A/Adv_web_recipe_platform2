@@ -57,6 +57,12 @@ COPY . .
 COPY --from=vendor /var/www/html/vendor ./vendor
 COPY --from=node-build /app/public ./public
 
+# Install nginx and copy configuration
+RUN apt-get update && apt-get install -y --no-install-recommends nginx \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
@@ -66,6 +72,6 @@ RUN composer dump-autoload --optimize --no-dev --classmap-authoritative || true
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-EXPOSE 9000
+EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["nginx", "-g", "daemon off;"]
