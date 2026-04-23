@@ -62,6 +62,8 @@ RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nginx \
     && ln -sf /usr/sbin/nginx /usr/local/bin/nginx || true \
     && nginx -v || true \
+    # Remove distro default site to avoid duplicate default_server errors
+    && rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default || true \
     && rm -rf /var/lib/apt/lists/*
 RUN which nginx && nginx -v
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
