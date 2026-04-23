@@ -11,7 +11,7 @@ services:
       - key: APP_KEY
         generateValue: false
       - key: RUN_MIGRATIONS
-        value: 'true'
+        value: 'false'
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
@@ -31,6 +31,8 @@ services:
     plan: starter
     dockerfilePath: ./mysql.Dockerfile
     autoDeploy: true
+    startCommand: php -S 0.0.0.0:$PORT -t public
+    preDeployCommand: php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache
     envVars:
       - key: MYSQL_DATABASE
         value: recipe_sharing
