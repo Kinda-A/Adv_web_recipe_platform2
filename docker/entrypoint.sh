@@ -49,4 +49,12 @@ if [ "$#" -gt 0 ]; then
 fi
 
 echo "[entrypoint] finished - executing: $@"
-exec "$@"
+
+# If the command was supplied as a single string (some platforms pass the whole startCommand
+# as one argument), run it through the shell so quoted args are parsed correctly.
+if [ "$#" -eq 1 ]; then
+  echo "[entrypoint] single-arg start command detected; executing via sh -c"
+  exec sh -c "$1"
+else
+  exec "$@"
+fi
