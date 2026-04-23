@@ -1,0 +1,5 @@
+FROM mysql:8.0
+ENV MYSQL_DATABASE=recipe_sharing
+ENV MYSQL_USER=laravel
+ENV MYSQL_PASSWORD=secret
+ENV MYSQL_ROOT_PASSWORD=rootsecret
